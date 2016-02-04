@@ -1,3 +1,4 @@
+import sys
 from character import Character
 from monster import Goblin
 from monster import Dragon
@@ -21,6 +22,11 @@ class Game:
             return None
 
     def monster_turn(self):
+        print('=========================')
+        print(self.player.__str__())
+        print('=========================')
+        print(self.monster.__str__())
+        print('=========================')
         if self.monster.attack():
             print('A {} has attacked you'.format(self.monster.name))
             dodge_decide = raw_input('Would you like to dodge? [y/n] ')
@@ -37,6 +43,11 @@ class Game:
             print('The {} missed his attack! You took 0 damage!'.format(self.monster.name))
 
     def player_turn(self):
+        print('=========================')
+        print(self.player.__str__())
+        print('=========================')
+        print(self.monster.__str__())
+        print('=========================')
         print('It\'s now your turn {}. What do you decide?'.format(self.player.name))
         choice = raw_input('You can [A]ttack, [R]est, or [Q]uit the game. ')
         if choice.lower() == 'a':
@@ -58,6 +69,7 @@ class Game:
                 print('You are already full health. You don\'t need to rest')
         elif choice.lower() == 'q':
             print('Thank you for playing.')
+            sys.exit()
         else:
             print('Your selection was invalid. Please try again...')
             self.player_turn()
@@ -65,10 +77,10 @@ class Game:
     def cleanup(self):
         if self.monster.hit_points <= 0:
             print('You have slain the {}. You gained 5 experience points.'.format(self.monster.name))
-            self.player.experience += 5
+            self.player.experience += self.monster.experience
             self.monster = self.get_next_monster()
             if self.monster:
-                print('A wild {} appears! He doens\'t look happy!'.format(self.monster.name))
+                print('A wild {} appears! He doesn\'t look happy!'.format(self.monster.name))
 
     def __init__(self):
         self.set_up()
@@ -80,6 +92,7 @@ class Game:
             print('You win!!!!')
         elif self.monster or self.monsters:
             print('You lose!!!')
+        sys.exit()
 
 
 newGame = Game()
