@@ -8,6 +8,7 @@ from monster import Troll
 
 class Game:
     def set_up(self):
+        os.system('clear')
         self.player = Character()
         self.monsters = [
             Goblin(),
