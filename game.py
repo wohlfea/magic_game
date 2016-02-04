@@ -1,4 +1,5 @@
 import sys
+import os
 from character import Character
 from monster import Goblin
 from monster import Dragon
@@ -82,10 +83,16 @@ class Game:
             if self.monster:
                 print('A wild {} appears! He doesn\'t look happy!'.format(self.monster.name))
 
+    def game_continue(self):
+        pause = raw_input('Press Enter/Return to continue... ')
+        os.system('clear')
+
     def __init__(self):
         self.set_up()
         while self.player.hit_points and (self.monster or self.monsters):
+            self.game_continue()
             self.monster_turn()
+            self.game_continue()
             self.player_turn()
             self.cleanup()
         if self.player.hit_points:
