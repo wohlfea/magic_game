@@ -6,6 +6,7 @@ class Character(Combat):
     attack_limit = 10
     experience = 0
     base_points = 10
+
     def attack(self):
         roll = random.randint(1, self.attack_limit)
         if self.weapon == 'sword':
@@ -13,6 +14,7 @@ class Character(Combat):
         elif self.weapon == 'axe':
             roll += 2
         return roll > 4
+
     def get_weapon(self):
         weapon_choice = raw_input('Weapon ([S]word, [A]xe, [B]ow): ')
         if weapon_choice in 'sab':
@@ -29,12 +31,15 @@ class Character(Combat):
         self.name = raw_input('Name: ')
         self.weapon = self.get_weapon()
         self.hit_points = self.base_points
-
         for key, value in kwargs.items():
             setattr(self, key, value)
 
     def __str__(self):
-        return '{}, HP: {}, XP: {}'.format(self.name, self.hit_points, self.experience)
+        return '{}, HP: {}, XP: {}'.format(
+                                           self.name,
+                                           self.hit_points,
+                                           self.experience
+                                           )
 
     def rest(self):
         if self.hit_points < self.base_points:
